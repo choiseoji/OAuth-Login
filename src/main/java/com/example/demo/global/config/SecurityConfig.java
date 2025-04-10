@@ -40,7 +40,7 @@ public class SecurityConfig {
 
         // OAuth 2.0 로그인 방식 설정
         http
-                .oauth2Login((auth) -> auth.loginPage("/oauth-login/login")  // 여긴 로그인 페이지로 이동하는 url (커스튬 페이지인데 만들지 X)
+                .oauth2Login((auth) -> auth
                         .defaultSuccessUrl("/oauth-success.html")  // 로그인 성공했을 때 이동하는 url
                         .failureUrl("/oauth-login/login")
                         .userInfoEndpoint(userInfo -> userInfo
