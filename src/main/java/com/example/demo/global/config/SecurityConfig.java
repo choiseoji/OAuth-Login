@@ -2,6 +2,7 @@ package com.example.demo.global.config;
 
 import com.example.demo.domain.member.enumerate.MemberRole;
 import com.example.demo.domain.oauth.GoogleUserDetailsService;
+import com.example.demo.global.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final GoogleUserDetailsService googleUserDetailsService;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -43,6 +45,7 @@ public class SecurityConfig {
                 .oauth2Login((auth) -> auth
                         .defaultSuccessUrl("/oauth-success.html")  // 로그인 성공했을 때 이동하는 url
                         .failureUrl("/oauth-login/login")
+                        .successHandler(oAuth2LoginSuccessHandler)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(googleUserDetailsService))  // 구글이 accessToken을 넘겨주면, 토큰을 가지고 구글의 UserInfo 엔드포인트로 가서 사용자 정보를 가져옴
                         .permitAll());
