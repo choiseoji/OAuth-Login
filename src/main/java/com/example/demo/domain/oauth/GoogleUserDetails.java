@@ -18,6 +18,10 @@ public class GoogleUserDetails implements OAuth2User {
         this.attributes = attributes;
     }
 
+    public Member getMember() {
+        return member;
+    }
+
     @Override
     public Map<String, Object> getAttributes() {
         return attributes;
