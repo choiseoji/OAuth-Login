@@ -3,6 +3,7 @@ package com.example.demo.global.config;
 import com.example.demo.domain.member.enumerate.MemberRole;
 import com.example.demo.domain.oauth.GoogleUserDetailsService;
 import com.example.demo.global.OAuth2LoginSuccessHandler;
+import com.example.demo.global.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +13,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtFilter jwtFilter;
     private final GoogleUserDetailsService googleUserDetailsService;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
@@ -49,6 +52,10 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(googleUserDetailsService))  // 구글이 accessToken을 넘겨주면, 토큰을 가지고 구글의 UserInfo 엔드포인트로 가서 사용자 정보를 가져옴
                         .permitAll());
+
+        // token 검사 필터 추가
+//        http
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

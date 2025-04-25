@@ -1,7 +1,7 @@
 package com.example.demo.global.jwt;
 
 import com.example.demo.domain.member.enumerate.MemberRole;
-중import com.example.demo.domain.oauth.GoogleUserDetailsService;
+import com.example.demo.domain.oauth.GoogleUserDetailsService;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
